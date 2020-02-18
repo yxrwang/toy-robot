@@ -109,6 +109,8 @@ public class CommandExecutor {
 
             }
 
+            System.out.println("Commands execution completed.");
+
         }else{
 
             System.out.print("No command has been given to the Robot.");
