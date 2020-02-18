@@ -5,8 +5,6 @@ public class Command {
 
     private Operation operation;
 
-    private Object argument;
-
     public Command(Operation operation){
 
         this.operation = operation;
@@ -20,11 +18,4 @@ public class Command {
         this.operation = operation;
     }
 
-    public Object getArgument() {
-        return argument;
-    }
-
-    public void setArgument(Object argument) {
-        this.argument = argument;
-    }
 }
