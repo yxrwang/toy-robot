@@ -48,11 +48,12 @@ public class TestCommandExecutor {
 
         commandExecutor.execute();
 
-        Assert.assertEquals(0, robot.getCurrentPosition().getX(),0);
+        Assert.assertEquals(1, robot.getCurrentPosition().getX());
 
-        Assert.assertEquals(1, robot.getCurrentPosition().getY(), 0);
+        Assert.assertEquals(1, robot.getCurrentPosition().getY());
 
-        Assert.assertEquals(Facing.EAST, robot.getCurrentFacing());
+        Assert.assertEquals(Facing.SOUTH, robot.getCurrentFacing());
+
     }
 
     private List<Command> getValidCommands(){
@@ -100,7 +101,7 @@ public class TestCommandExecutor {
 
         invalidCommands.add(new Command(null));
 
-        invalidCommands.add(new Command(Operation.PLACE));
+        invalidCommands.add(new PlaceCommand(new PlaceOperationArgument(new Position(1, 1), Facing.SOUTH)));
 
         return invalidCommands;
     }

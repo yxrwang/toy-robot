@@ -7,9 +7,9 @@ import au.com.arvis.exception.InvalidPosition;
 
 public class Robot implements RobotOperation{
 
-    private Position currentPosition = new Position(0,0);
+    private Position currentPosition = null;
 
-    private Facing currentFacing = Facing.NORTH;
+    private Facing currentFacing = null;
 
     private EnvironmentAware environment;
 
@@ -34,49 +34,65 @@ public class Robot implements RobotOperation{
         this.environment = environment;
     }
 
+    private boolean isPlaced(){
+
+        return currentFacing != null && currentPosition != null;
+    }
+
     @Override
     public void turnLeft() {
 
-        switch (currentFacing){
+        if(isPlaced()){
 
-            case EAST:
-                currentFacing = Facing.NORTH;
-                break;
-            case WEST:
-                currentFacing = Facing.SOUTH;
-                break;
-            case NORTH:
-                currentFacing = Facing.WEST;
-                break;
-            case SOUTH:
-                currentFacing = Facing.EAST;
-                break;
+            switch (currentFacing){
+
+                case EAST:
+                    currentFacing = Facing.NORTH;
+                    break;
+                case WEST:
+                    currentFacing = Facing.SOUTH;
+                    break;
+                case NORTH:
+                    currentFacing = Facing.WEST;
+                    break;
+                case SOUTH:
+                    currentFacing = Facing.EAST;
+                    break;
+            }
         }
+
+
     }
 
     @Override
     public void turnRight() {
 
-        switch (currentFacing){
+        if(isPlaced()){
 
-            case EAST:
-                currentFacing = Facing.SOUTH;
-                break;
-            case WEST:
-                currentFacing = Facing.NORTH;
-                break;
-            case SOUTH:
-                currentFacing = Facing.WEST;
-                break;
-            case NORTH:
-                currentFacing = Facing.EAST;
-                break;
+            switch (currentFacing){
+
+                case EAST:
+                    currentFacing = Facing.SOUTH;
+                    break;
+                case WEST:
+                    currentFacing = Facing.NORTH;
+                    break;
+                case SOUTH:
+                    currentFacing = Facing.WEST;
+                    break;
+                case NORTH:
+                    currentFacing = Facing.EAST;
+                    break;
+            }
         }
+
     }
 
     @Override
     public void place(Position position, Facing facing) throws InvalidPosition{
 
+        if(position == null)
+            throw new InvalidPosition();
 
         if(position.isValid() && environment.isSafe(position)){
 
@@ -97,25 +113,30 @@ public class Robot implements RobotOperation{
     @Override
     public void move() throws InvalidPosition {
 
-        Position destination = null;
+        if(isPlaced()){
 
-        switch (currentFacing){
+            Position destination = null;
 
-            case EAST:
-                destination = new Position(currentPosition.getX()+1, currentPosition.getY());
-                break;
-            case WEST:
-                destination = new Position(currentPosition.getX()-1, currentPosition.getY());
-                break;
-            case SOUTH:
-                destination = new Position(currentPosition.getX(), currentPosition.getY() - 1);
-                break;
-            case NORTH:
-                destination = new Position(currentPosition.getX(), currentPosition.getY() + 1);
-                break;
+            switch (currentFacing){
+
+                case EAST:
+                    destination = new Position(currentPosition.getX()+1, currentPosition.getY());
+                    break;
+                case WEST:
+                    destination = new Position(currentPosition.getX()-1, currentPosition.getY());
+                    break;
+                case SOUTH:
+                    destination = new Position(currentPosition.getX(), currentPosition.getY() - 1);
+                    break;
+                case NORTH:
+                    destination = new Position(currentPosition.getX(), currentPosition.getY() + 1);
+                    break;
+            }
+
+            place(destination, currentFacing);
         }
 
-        place(destination, currentFacing);
+
     }
 
     @Override

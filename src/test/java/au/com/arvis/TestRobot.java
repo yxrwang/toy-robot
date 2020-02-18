@@ -23,17 +23,11 @@ public class TestRobot {
     }
 
     @Test
-    public void testPlaceInASafePosition(){
+    public void testPlaceInASafePosition() throws InvalidPosition{
 
         Position safePosition = new Position(1,0);
 
-        try{
-
-            robot.place(safePosition, Facing.EAST);
-
-        }catch (InvalidPosition e){
-
-        }
+        robot.place(safePosition, Facing.EAST);
 
         Assert.assertEquals(1, robot.getCurrentPosition().getX(), 0);
 
@@ -99,5 +93,13 @@ public class TestRobot {
 
         Assert.assertEquals(Facing.EAST, robot.getCurrentFacing());
 
+    }
+
+    @Test
+    public void testRobotOperationWithoutPlaceCommand(){
+
+        Assert.assertNull(robot.getCurrentFacing());
+
+        Assert.assertNull(robot.getCurrentPosition());
     }
 }

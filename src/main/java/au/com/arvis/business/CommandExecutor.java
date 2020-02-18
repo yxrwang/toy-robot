@@ -74,6 +74,10 @@ public class CommandExecutor {
                                 if(argument != null){
 
                                     robot.place(argument.getPosition(), argument.getFacing());
+
+                                }else{
+
+                                    System.out.println("No valid position is specified when placing.");
                                 }
 
 

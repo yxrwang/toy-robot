@@ -68,6 +68,39 @@ public class TestSimulator {
         Assert.assertEquals(Facing.NORTH, robot.getCurrentFacing());
     }
 
+    @Test
+    public void testPlaceCommandNotComesFirst() throws Exception{
+
+        runSimulationWithCommandFile("test3");
+
+        Assert.assertEquals(0, robot.getCurrentPosition().getX(),0);
+
+        Assert.assertEquals(1, robot.getCurrentPosition().getY(), 0);
+
+        Assert.assertEquals(Facing.NORTH, robot.getCurrentFacing());
+    }
+
+    @Test
+    public void testPlaceCommandAppearsAgain() throws Exception{
+
+        runSimulationWithCommandFile("test4");
+
+        Assert.assertEquals(0, robot.getCurrentPosition().getX(),0);
+
+        Assert.assertEquals(0, robot.getCurrentPosition().getY(), 0);
+
+        Assert.assertEquals(Facing.NORTH, robot.getCurrentFacing());
+    }
+
+    private void runSimulationWithCommandFile(String commandFile) throws Exception{
+
+        List<Command> unsafeCommands = CommandParser.getCommands(getTestFile(commandFile));
+
+        commandExecutor.setCommands(unsafeCommands);
+
+        simulator.run();
+    }
+
     private String getTestFile(String fileName) throws Exception{
 
         return getClass().getClassLoader().getResource(fileName).getFile();
