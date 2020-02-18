@@ -19,9 +19,13 @@ public class TestCommandParser {
 
         Assert.assertEquals(Operation.PLACE, validCommands.get(0).getOperation());
 
-        Position placePosition = ((PlaceOperationArgument)validCommands.get(0).getArgument()).getPosition();
+        Assert.assertTrue(validCommands.get(0) instanceof PlaceCommand);
 
-        Facing placeFacing = ((PlaceOperationArgument)validCommands.get(0).getArgument()).getFacing();
+        PlaceCommand placeCommand = (PlaceCommand)validCommands.get(0);
+
+        Position placePosition = placeCommand.getPlaceOperationArgument().getPosition();
+
+        Facing placeFacing = placeCommand.getPlaceOperationArgument().getFacing();
 
         Assert.assertEquals(0, placePosition.getX(), 0);
 

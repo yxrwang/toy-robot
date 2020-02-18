@@ -59,9 +59,7 @@ public class TestCommandExecutor {
 
         List<Command> validCommands = new ArrayList<>();
 
-        Command place = new Command(Operation.PLACE);
-
-        place.setArgument(new PlaceOperationArgument(new Position(1, 1), Facing.EAST));
+        Command place = new PlaceCommand(new PlaceOperationArgument(new Position(1, 1), Facing.EAST));
 
         validCommands.add(place);
 

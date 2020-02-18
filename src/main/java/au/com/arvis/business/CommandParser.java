@@ -69,7 +69,7 @@ public class CommandParser {
 
             return new PlaceCommand(new PlaceOperationArgument(position, facing));
 
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
 
             System.out.println("Invalid Place command: " + e.getMessage());
         }
